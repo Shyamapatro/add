@@ -1,0 +1,12 @@
+.backgraound {
+    height: 230px;
+    width: 430px;
+    border-radius: 20px;
+    background: rgb(148, 0, 211);
+    background: linear-gradient(90deg, rgba(148, 0, 211, 1) 0%, rgba(75, 0, 130, 1) 100%);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+}
+
+.iconBg {
+    background: linear-gradient(90deg, #C84E89 0%, #F15F79 100%);
+}

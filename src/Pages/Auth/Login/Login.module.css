@@ -1,0 +1,21 @@
+.login {
+  background: rgb(148, 0, 221);
+  background: linear-gradient(90deg, rgba(148, 0, 221, 1) 0%, rgba(75, 0, 130, 1) 100%);
+  box-shadow: 0px 0px 64px rgba(0, 0, 0, 0.5);
+}
+
+.login_btn {
+  background: var(--secondary);
+  height: 50px;
+  width: 200px;
+  border-radius: 64px;
+  font-size: 20px;
+  box-shadow: 0px 0px 64px rgba(0, 0, 0, 0.5);
+}
+
+input {
+  border-radius: 64px;
+  font-size: 22px;
+  font-weight: bold;
+  box-shadow: 0px 0px 16px rgba(255, 255, 255, 0.25);
+}
