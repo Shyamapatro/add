@@ -37,7 +37,7 @@ const Sections = () => {
   });
   const { data } = useSelector((state) => state.section);
   const { data: category } = useSelector((state) => state.category);
-
+console.log("-----------------category", category )
   // Create Section
   const [sectionData, setSectionData] = useState({
     id: "",

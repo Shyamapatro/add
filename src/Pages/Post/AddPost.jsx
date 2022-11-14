@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import JoditEditor from "jodit-react";
 import Layout from "../../components/Layout/Layout"
 import { Button, Card, Text, TextInput } from "../../tailwind"
 import toast from "react-hot-toast"
 import { createPost } from '../../http';
+import { useDispatch, useSelector } from "react-redux";
+
+// 
+import {fetchCategories} from "../../redux/slice​/categorySlice";
+//   
 
 const AddPost = () => {
     const [tegs, setTeg] = useState([])
@@ -17,14 +22,32 @@ const AddPost = () => {
     const [loading, setLoading] = useState(false);
     const [editSlug, setEditSlug] = useState(false);
     const [hidden, setHidden] = useState(false);
-
+    const { data: category }= useSelector((state) => state.category);
+    // console.log("-----------------category", category[0].id )
+  // Create Section
+  const [sectionData, setSectionData] = useState([]);
+  const dispatch = useDispatch();
+  const categoryId= Object.values(sectionData);
+console.log("===============categoryId",categoryId)
+    // 
+    useEffect(() => {
+    
+        dispatch(fetchCategories());
+      }, []);
+    //
     const [postData, setPostData] = useState({
         title: '',
         content: '',
         seo_title: '',
         seo_metadata: '',
         type: 'article',
+    tags: [],
+    categories:[]
+
+   
     });
+
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,9 +63,11 @@ const AddPost = () => {
         for (let key of tegs.entries()) {
             formData.append('tegs', key[1])
         }
-        for (let key of categories.entries()) {
-            formData.append('categories', key[1])
-        }
+        // for (let key of categories.entries()) {
+        //     formData.append('categories', key[1])
+        // }
+         formData.append('categories', categoryId);
+        
         setLoading(true);
         if (postData.title === '') {
             toast.error('title is required')
@@ -303,7 +328,7 @@ const AddPost = () => {
                                         textStyle={'text-xl opacity-60 my-2'} // Pass only tailwind class
                                     />
                                     <Card>
-                                        <div className='flex gap-1'>
+                                        {/* <div className='flex gap-1'>
                                             <input
                                                 className='w-full h-6 p-5 py-6 bg-secondary-blue focus:outline-none text-white rounded-full text-lg font-normal'
                                                 type="text"
@@ -311,8 +336,25 @@ const AddPost = () => {
                                                 placeholder='Add categories'
                                                 onKeyDown={handleCategory}
                                             />
-                                        </div>
-                                        <div>
+                                        </div> */}
+                                           <select
+                    class="select select-bordered w-full bg-white-200 text-gray-900 border border-gray-200 rounded leading-tight focus:outline-none focus:bg-white shadow text-base mb-5"
+                    value={category.value}
+                    onChange={(e) =>
+                        setSectionData({
+                          ...sectionData,
+                          category: e.target.value,
+                        })
+                      }
+                  >
+                    <option selected>Select a category</option>
+                    {category.length > 0 &&
+                      category.map((item) => {
+                        // console.log("----------------item",item.id)
+                        return <option value={item.title}>{item.title}</option>;
+                      })}
+                  </select>
+                                        {/* <div>
                                             <div className={`rounded-md px-2 ${categories.length > 0 && 'm-2'} flex items-center flex-wrap gap-3`}>
                                                 {
                                                     categories.map((category, index) => {
@@ -330,7 +372,7 @@ const AddPost = () => {
                                                     })
                                                 }
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </Card>
                                 </div>
 
